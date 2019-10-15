@@ -1,9 +1,15 @@
+//dependencies
 import React from 'react';
+
+//components
 import './App.css';
+import FriendsList from './components/FriendsList';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
     <div className="App">
+      <PrivateRoute path='/friends' component={FriendsList} />
     </div>
   );
 }

@@ -1,7 +1,54 @@
-//simple login form with username and password inputs and a submit button.
+import React, { useState } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { Redirect } from "react-router-dom";
 
-//the login function needs to save the token to localstorage.
+const LoginForm = (props) => {
+  const [credentials, setCredentials] = useState({});
 
-//setup isLoading state and show a spinner while login request is happening.
+  const handleChange = e => {
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value
+    });
+  };
 
-//use the history object to navigate the user to FriendsList
+  const login = e => {
+      e.preventDefault();
+      axiosWithAuth()
+      .post('api/login', credentials)
+      .then(res => { 
+          localStorage.setItem('token', res.data.payload);
+          props.history.push('/friends')
+      })
+        .catch(err => console.log(err.response))
+  }
+  
+  return(
+
+  localStorage.getItem('token') ? (
+      <Redirect to='/friends' />
+    
+  ): (
+    <div>
+      <div>
+        <form onSubmit={login}>
+          <input
+            type="text"
+            name="username"
+            value={credentials.username}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+          />
+          <button>Log in</button>
+        </form>
+      </div>
+      </div>
+  ))
+  }
+
+export default LoginForm;

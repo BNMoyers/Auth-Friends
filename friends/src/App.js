@@ -1,19 +1,29 @@
-//dependencies
 import React from 'react';
-
-//components
-import './App.css';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import LoginForm from './components/LoginForm';
 import FriendsList from './components/FriendsList';
 import PrivateRoute from './components/PrivateRoute';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <PrivateRoute path='/friends' component={FriendsList} />
-    </div>
+    <Router>
+      <div className="App">
+        <ul>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/friends">My Friends</Link>
+          </li>
+        </ul>
+        <Switch>
+          <Route path="/login" component={LoginForm} />
+          <PrivateRoute path="/friends" component={FriendsList} />
+          <Route component={LoginForm} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
-export default App;
-//need a route to the login page
-//protected route to the friendslist component that redirects to login if not authed
+export default App

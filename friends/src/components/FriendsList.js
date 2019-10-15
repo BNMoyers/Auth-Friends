@@ -1,0 +1,1 @@
+//renders list of friends from API, as well as the add/edit form . In addition to these forms/buttons, there should be a delete button. 

@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import moment from 'moment';
-import Loader from 'react-loader-spinner';
-import Friend from './Friend';
+import React, { useState, useEffect } from "react";
+import moment from "moment";
+import Loader from "react-loader-spinner";
+import Friend from "./Friend";
 
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const FriendList = props => {
-const [Friends, setFriends] = useState({});
-const getData = () => {
-    axiosWithAuth()
-    .get('/api/friends')
-    .then(res => {
-        setFriends(res.data)
-    })
-    .catch(err => console.log('error: ',err.response));
-}
+  const [Friends, setFriends] = useState([]);
+  const getData = async () => {
+    await axiosWithAuth()
+      .get("/api/friends")
+      .then(res => {
+        setFriends(res.data);
+      })
+      .catch(err => console.log("error: ", err.response));
+  };
 
-useEffect(() =>{
-    getData()},[]);
+  useEffect(() => {
+    getData();
+  }, []);
 
- console.log('Friends',Friends)   
-return(
-<div>
-    {Friends.map(friend => (
-        <Friend key = {friend.id} friend={friend} />
-    ))}
-</div>
-)
-}
-export default FriendList
+  console.log("Friends", Friends);
+  return (
+    <div>
+      {Friends.map(friend => (
+        <Friend key={friend.id} friend={friend} />
+      ))}
+    </div>
+  );
+};
+export default FriendList;

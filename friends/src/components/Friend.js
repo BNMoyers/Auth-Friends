@@ -2,7 +2,11 @@ import React from 'react'
 
 const Friend = ({ friend }) => {
    return( 
-   <div>this is a friend card</div>
+   <div>
+       <h3>{friend.name}</h3>
+       <span>{friend.age}</span>
+       <p>{friend.email}</p>
+   </div>
    )}
 
 export default Friend
